@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Pull the repository code from version control
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    // Compile the Java code
+                    sh 'javac HelloWorld.java'
+                }
+            }
+        }
+
+        stage('Execute') {
+            steps {
+                script {
+                    // Execute the compiled Java class
+                    sh 'java HelloWorld'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline complete.'
+        }
+    }
+}
